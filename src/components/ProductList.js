@@ -4,17 +4,25 @@ import { useSelector, useDispatch } from "react-redux";
 import "./productlist.css";
 import { getProductList } from "../redux/reducers/product";
 import CategorySelect from "./CategorySelect";
+import laptop from "../images/laptop.jpg";
 
 function ProductList() {
-  const { isLoading, error, data } = useSelector((state) => state.list);
+  const { isLoading, error, data, filter } = useSelector((state) => state.list);
 
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (data.length == 0) {
-      dispatch(getProductList());
+      dispatch(getProductList()); // fetch product list
     }
   }, []);
 
+  // Filter Data By Category
+  const filteredData = React.useMemo(() => {
+    if (filter == "All") {
+      return data;
+    }
+    return data.filter((d) => d.categoryId == filter);
+  }, [filter, data]);
   if (isLoading) {
     return "Loading ...";
   }
@@ -26,25 +34,24 @@ function ProductList() {
   return (
     <>
       <CategorySelect />
-      <div className="flex justify-center"></div>
       <div className="padding-2 flex flex-wrap justify-center">
-        {data.map((product) => (
+        {filteredData.map((product) => (
           <NavLink
             key={product.id}
             className="text-black text-decorate-none"
             to={`/${product.id}`}
           >
-            <div
-              className="padding-2 box items-center flex flex-col margin-2"
-              style={{
-                border: "2px solid black",
-                cursor: "pointer",
-                textDecoration: "none",
-              }}
-            >
+            <div className="padding-2 box items-center flex flex-col margin-2">
+              <img src={laptop} className="laptop" />
               <h2>{product.name}</h2>
               <p>{product.model}</p>
-              <p>{product.price}</p>
+              <p>
+                {product.price.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "INR",
+                })}{" "}
+                INR
+              </p>
             </div>
           </NavLink>
         ))}

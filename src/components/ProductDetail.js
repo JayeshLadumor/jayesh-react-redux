@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "./productlist.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../redux/reducers/product";
+import laptop from "../images/laptop.jpg";
 
 function ProductDetail() {
   const params = useParams();
@@ -11,7 +12,7 @@ function ProductDetail() {
   React.useEffect(() => {
     if (params?.id) {
       if ((data && data.id != params.id) || !data) {
-        dispatch(getProductDetail(params.id));
+        dispatch(getProductDetail(params.id)); // Fetch Product Details
       }
     }
   }, []);
@@ -33,11 +34,17 @@ function ProductDetail() {
             width: "90rem",
           }}
         >
-          Image will be here
+          <img src={laptop} className="laptop" />
         </div>
         <div className="flex-1 margin-2">
           <h2>{data.name}</h2>
-          <p>{data.price} INR</p>
+          <p>
+            {data.price.toLocaleString("en-US", {
+              style: "currency",
+              currency: "INR",
+            })}{" "}
+            INR
+          </p>
           <div>{data.description}</div>
         </div>
       </div>

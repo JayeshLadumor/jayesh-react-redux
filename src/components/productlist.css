@@ -16,6 +16,9 @@
 
 .box {
   width: 200px;
+  border: 2px solid black;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .padding-2 {
@@ -39,4 +42,10 @@
 }
 .text-decorate-none {
   text-decoration: none;
+}
+
+.laptop {
+  max-width: 100%;
+  height: auto;
+  width: auto;
 }

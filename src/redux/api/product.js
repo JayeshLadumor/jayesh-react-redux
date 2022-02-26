@@ -10,5 +10,5 @@ export const getProductDetailAPI = (id) => {
 };
 
 export const getCategoryAPI = () => {
-  return axios.get(`${ENDPOINT}categories}`);
+  return axios.get(`${ENDPOINT}categories`);
 };

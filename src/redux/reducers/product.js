@@ -8,6 +8,7 @@ import {
   START_CATEGORY_LIST,
   SUCCESS_CATEGORY_LIST,
   ERROR_CATEGORY_LIST,
+  SET_CATEGORY_FILTER,
 } from "../actions/product";
 import {
   getProductListAPI,
@@ -20,7 +21,7 @@ const initialState = {
     data: [],
     isLoading: false,
     error: null,
-    filter: null,
+    filter: "All",
   },
   detail: {
     data: null,
@@ -62,6 +63,15 @@ export default function (prevState = initialState, action) {
           error: action.message,
         },
       };
+    case SET_CATEGORY_FILTER: {
+      return {
+        ...prevState,
+        list: {
+          ...prevState.list,
+          filter: action.payload,
+        },
+      };
+    }
     case START_PRODUCT_DETAIL:
       return {
         ...prevState,
@@ -120,15 +130,12 @@ export default function (prevState = initialState, action) {
 
 //
 export const getProductList = () => async (dispatch, getState) => {
-  console.log("getProduct");
-
   dispatch({
     type: START_PRODUCT_LIST,
   });
 
   try {
     const response = await getProductListAPI();
-    console.log("response", response);
     dispatch({
       type: SUCCESS_PRODUCT_LIST,
       payload: response.data,
@@ -142,8 +149,6 @@ export const getProductList = () => async (dispatch, getState) => {
 };
 
 export const getProductDetail = (productId) => async (dispatch, getState) => {
-  console.log("getProduct");
-
   dispatch({
     type: START_PRODUCT_DETAIL,
   });
@@ -163,8 +168,6 @@ export const getProductDetail = (productId) => async (dispatch, getState) => {
 
 //
 export const getCategory = () => async (dispatch, getState) => {
-  console.log("getProduct");
-
   dispatch({
     type: START_CATEGORY_LIST,
   });
