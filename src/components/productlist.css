@@ -1,0 +1,42 @@
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.box {
+  width: 200px;
+}
+
+.padding-2 {
+  padding: 2rem;
+}
+
+.margin-2 {
+  margin: 2rem;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex-grow: 1;
+}
+
+.text-black {
+  color: black;
+}
+.text-decorate-none {
+  text-decoration: none;
+}
